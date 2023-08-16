@@ -1,10 +1,19 @@
 #!/bin/sh
 
+OPTIONAL_PROPERTIES=""
+
+if [ -n "$S3PROXY_ENDPOINT" ]; then
+    OPTIONAL_PROPERTIES="$OPTIONAL_PROPERTIES -Ds3proxy.endpoint=$S3PROXY_ENDPOINT"
+fi
+
+if [ -n "$S3PROXY_SECURE_ENDPOINT" ]; then
+    OPTIONAL_PROPERTIES="$OPTIONAL_PROPERTIES -Ds3proxy.secure-endpoint=$S3PROXY_SECURE_ENDPOINT"
+fi
+
 exec java \
     $S3PROXY_JAVA_OPTS \
     -DLOG_LEVEL="${LOG_LEVEL}" \
-    -Ds3proxy.endpoint="${S3PROXY_ENDPOINT}" \
-    -Ds3proxy.secure-endpoint="${S3PROXY_SECURE_ENDPOINT}" \
+    "$OPTIONAL_PROPERTIES" \
     -Ds3proxy.virtual-host="${S3PROXY_VIRTUALHOST}" \
     -Ds3proxy.keystore-path="${S3PROXY_KEYSTORE_PATH}" \
     -Ds3proxy.keystore-password="${S3PROXY_KEYSTORE_PASSWORD}" \
