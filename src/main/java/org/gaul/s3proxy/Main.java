@@ -319,7 +319,7 @@ public final class Main {
             identity = Strings.nullToEmpty(identity);
             credential = Strings.nullToEmpty(credential);
         } else if (provider.equals("google-cloud-storage")) {
-            File credentialFile = new File(credential);
+            File credentialFile = new File(credential).getAbsoluteFile();
             if (credentialFile.exists()) {
                 credential = Files.asCharSource(credentialFile,
                         StandardCharsets.UTF_8).read();
