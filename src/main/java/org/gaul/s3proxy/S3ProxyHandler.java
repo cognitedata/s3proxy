@@ -2796,7 +2796,7 @@ public class S3ProxyHandler {
         BlobMetadata blobMetadata;
         if (Quirks.MULTIPART_REQUIRES_STUB.contains(getBlobStoreType(
                 blobStore))) {
-            blobMetadata = blobStore.blobMetadata(containerName, uploadId);
+            blobMetadata = blobStore.blobMetadata(containerName, blobName);
         } else {
             blobMetadata = createFakeBlobMetadata(blobStore);
         }
