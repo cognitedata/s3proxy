@@ -24,7 +24,6 @@ import java.io.InputStream;
 import java.io.PrintStream;
 import java.nio.charset.StandardCharsets;
 import java.nio.file.FileSystems;
-import java.nio.file.InvalidPathException;
 import java.nio.file.PathMatcher;
 import java.util.ArrayList;
 import java.util.HashSet;
@@ -320,15 +319,10 @@ public final class Main {
             identity = Strings.nullToEmpty(identity);
             credential = Strings.nullToEmpty(credential);
         } else if (provider.equals("google-cloud-storage")) {
-            try {
-                java.nio.file.Path credentialPath = java.nio.file.Paths.get(credential);
-                assert java.nio.file.Files.exists(credentialPath) || java.nio.file.Files.notExists(credentialPath);
-                if (java.nio.file.Files.exists(credentialPath)) {
-                    credential = Files.asCharSource(credentialPath.toFile(),
-                            StandardCharsets.UTF_8).read();
-                }
-            } catch (InvalidPathException e) {
-                // ignore, as the credential does not have to be a path
+            File credentialFile = new File(credential);
+            if (credentialFile.exists()) {
+                credential = Files.asCharSource(credentialFile,
+                        StandardCharsets.UTF_8).read();
             }
             properties.remove(Constants.PROPERTY_CREDENTIAL);
         }
