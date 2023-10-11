@@ -323,7 +323,7 @@ public class S3ProxyHandler {
         for (String headerName : Collections.list(request.getHeaderNames())) {
             for (String headerValue : Collections.list(request.getHeaders(
                     headerName))) {
-                logger.debug("header: {}: {}", headerName,
+                logger.trace("header: {}: {}", headerName,
                         Strings.nullToEmpty(headerValue));
             }
             if (headerName.equalsIgnoreCase(HttpHeaders.DATE)) {
@@ -2994,6 +2994,9 @@ public class S3ProxyHandler {
                     corsRules.getAllowedOrigin(corsOrigin));
             response.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_METHODS,
                     corsRules.getAllowedMethods());
+            if (corsRules.isAllowCredentials()) {
+                response.addHeader(HttpHeaders.ACCESS_CONTROL_ALLOW_CREDENTIALS, "true");
+            }
         }
     }
 
