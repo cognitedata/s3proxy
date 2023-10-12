@@ -1,4 +1,4 @@
-FROM eclipse-temurin:11-jre
+FROM eclipse-temurin:21-jre
 LABEL maintainer="Andrew Gaul <andrew@gaul.org>"
 
 ARG DEBIAN_FRONTEND=noninteractive
