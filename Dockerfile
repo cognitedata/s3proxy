@@ -1,4 +1,4 @@
-FROM openjdk:11-jre-slim
+FROM eclipse-temurin:11-jre
 LABEL maintainer="Andrew Gaul <andrew@gaul.org>"
 
 ARG DEBIAN_FRONTEND=noninteractive
